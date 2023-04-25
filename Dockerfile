@@ -1,7 +1,3 @@
-# start by pulling the python image
-FROM gcr.io/cloud-builders/docker@sha256:08c5443ff4f8ba85c2114576bb9167c4de0bf658818aea536d3456e8d0e134cd
-
-# copy the requirements file into the image
 COPY ./requirements.txt /app/requirements.txt
 
 # switch working directory
