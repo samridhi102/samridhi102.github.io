@@ -1,5 +1,5 @@
 # start by pulling the python image
-FROM node:8.11-slim
+FROM python:2
 # copy the requirements file into the image
 COPY ./requirements.txt /app/requirements.txt
 
