@@ -1,20 +1,30 @@
-# start by pulling the python image
-FROM python:3
-# copy the requirements file into the image
-COPY ./requirements.txt /app/requirements.txt
+FROM python:3.9-slim-buster
 
-# switch working directory
+# Set the working directory to /app
 WORKDIR /app
 
-# install the dependencies and packages in the requirements file
-RUN pip install -r requirements.txt
+# Copy the requirements file
+COPY requirements.txt .
 
-# copy every content from the local file to the image
-COPY . /app
+# Install any needed packages specified in requirements.txt
+RUN pip install --no-cache-dir -r requirements.txt
 
+# Copy the application code
+COPY . .
 
-
-# configure the container to run in an executed manner
+# Expose port 5000 for Flask application
 EXPOSE 8080
-ENTRYPOINT ["python3.7", "app.py"]
-ENTRYPOINT ["gunicorn","--bind=0.0.0.0:8080","app:app"]
+
+# Set environment variables
+ENV FLASK_APP=main.py
+ENV FLASK_RUN_HOST=0.0.0.0
+
+# Run the command to start Flask application
+CMD ["flask", "run"]
+
+
+#
+## configure the container to run in an executed manner
+#EXPOSE 8080
+#ENTRYPOINT ["python3.7", "app.py"]
+#ENTRYPOINT ["gunicorn","--bind=0.0.0.0:8080","app:app"]
